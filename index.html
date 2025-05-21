@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bloom - Menstrual Tracker</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #fef6f6;
+        }
+        
+        .bg-dry-rose {
+            background-color: #C08081;
+        }
+        
+        .bg-coral {
+            background-color: #FF6F61;
+        }
+        
+        .text-dry-rose {
+            color: #C08081;
+        }
+        
+        .text-coral {
+            color: #FF6F61;
+        }
+        
+        .border-dry-rose {
+            border-color: #C08081;
+        }
+        
+        .border-coral {
+            border-color: #FF6F61;
+        }
+        
+        .hover-glow:hover {
+            box-shadow: 0 0 15px rgba(255, 111, 97, 0.3);
+        }
+        
+        .chat-bubble {
+            border-radius: 20px;
+            max-width: 80%;
+        }
+        
+        .user-bubble {
+            background-color: #FF6F61;
+            color: white;
+            border-bottom-right-radius: 5px;
+        }
+        
+        .bot-bubble {
+            background-color: #f0f0f0;
+            color: #333;
+            border-bottom-left-radius: 5px;
+        }
+        
+        .period-day {
+            background-color: #FF6F61;
+            color: white;
+            border-radius: 50%;
+        }
+        
+        .symptom-day {
+            background-color: #C08081;
+            color: white;
+            border-radius: 50%;
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-sm py-4 px-6 flex justify-between items-center">
+        <div class="flex items-center space-x-2">
+            <div class="w-8 h-8 rounded-full bg-gradient-to-r from-coral to-dry-rose"></div>
+            <span class="text-xl font-semibold text-dry-rose">Bloom</span>
+        </div>
+        <div class="hidden md:flex space-x-6">
+            <a href="#" class="text-gray-600 hover:text-coral transition">Dashboard</a>
+            <a href="#" class="text-gray-600 hover:text-coral transition">Calendar</a>
+            <a href="#" class="text-gray-600 hover:text-coral transition">Logs</a>
+            <a href="#" class="text-gray-600 hover:text-coral transition">Chat</a>
+            <a href="#" class="text-gray-600 hover:text-coral transition">Profile</a>
+        </div>
+        <div class="flex items-center space-x-4">
+            <button class="md:hidden text-gray-600">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+            </button>
+            <div class="relative">
+                <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Profile" class="w-8 h-8 rounded-full object-cover cursor-pointer">
+                <div class="absolute -top-1 -right-1 w-3 h-3 bg-green-500 rounded-full border border-white"></div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container mx-auto px-4 py-8">
+        <!-- Welcome Banner -->
+        <div class="bg-gradient-to-r from-pink-50 to-rose-50 rounded-2xl p-6 mb-8 shadow-sm">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center">
+                <div>
+                    <h1 class="text-2xl font-semibold text-gray-800">Welcome back, Sarah!</h1>
+                    <p class="text-gray-600 mt-1">Track your cycle and understand your body better</p>
+                </div>
+                <button class="mt-4 md:mt-0 bg-coral hover:bg-opacity-90 text-white px-6 py-2 rounded-full hover-glow transition">
+                    Log Today's Symptoms
+                </button>
+            </div>
+        </div>
+
+        <!-- Dashboard Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+            <!-- Cycle Day Card -->
+            <div class="bg-white rounded-2xl p-6 shadow-sm hover-glow transition">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-gray-500">Current Cycle Day</p>
+                        <h2 class="text-3xl font-bold text-coral mt-2">12</h2>
+                    </div>
+                    <div class="w-12 h-12 rounded-full bg-rose-50 flex items-center justify-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-dry-rose" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                        </svg>
+                    </div>
+                </div>
+                <p class="text-sm text-gray-500 mt-4">Next period expected in 14 days</p>
+            </div>
+
+            <!-- Symptoms Card -->
+            <div class="bg-white rounded-2xl p-6 shadow-sm hover-glow transition">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-gray-500">Today's Symptoms</p>
+                        <h2 class="text-3xl font-bold text-dry-rose mt-2">3</h2>
+                    </div>
+                    <div class="w-12 h-12 rounded-full bg-rose-50 flex items-center justify-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-dry-rose" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                        </svg>
+                    </div>
+                </div>
+                <div class="flex flex-wrap gap-2 mt-4">
+                    <span class="px-3 py-1 bg-rose-50 text-dry-rose rounded-full text-sm">Headache</span>
+                    <span class="px-3 py-1 bg-rose-50 text-dry-rose rounded-full text-sm">Fatigue</span>
+                    <span class="px-3 py-1 bg-rose-50 text-dry-rose rounded-full text-sm">Bloating</span>
+                </div>
+            </div>
+
+            <!-- AI Tip Card -->
+            <div class="bg-white rounded-2xl p-6 shadow-sm hover-glow transition">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-gray-500">AI Health Tip</p>
+                        <h2 class="text-lg font-semibold text-gray-800 mt-2">Stay Hydrated</h2>
+                    </div>
+                    <div class="w-12 h-12 rounded-full bg-rose-50 flex items-center justify-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-dry-rose" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" />
+                        </svg>
+                    </div>
+                </div>
+                <p class="text-sm text-gray-600 mt-4">Drinking enough water can help reduce bloating and fatigue during this phase of your cycle.</p>
+            </div>
+
+            <!-- Risk Alert Card -->
+            <div class="bg-white rounded-2xl p-6 shadow-sm hover-glow transition">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-gray-500">Cycle Alert</p>
+                        <h2 class="text-lg font-semibold text-gray-800 mt-2">Irregularity Detected</h2>
+                    </div>
+                    <div class="w-12 h-12 rounded-full bg-red-50 flex items-center justify-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                        </svg>
+                    </div>
+                </div>
+                <p class="text-sm text-gray-600 mt-4">Your last cycle was 5 days longer than average. Consider tracking more symptoms.</p>
+            </div>
+        </div>
+
+        <!-- Recent Logs and Calendar Section -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8">
+            <!-- Recent Logs -->
+            <div class="lg:col-span-2 bg-white rounded-2xl p-6 shadow-sm">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-xl font-semibold text-gray-800">Recent Logs</h2>
+                    <button class="text-sm text-coral hover:underline">View All</button>
+                </div>
+                
+                <div class="space-y-4">
+                    <!-- Log Item -->
+                    <div class="flex items-start p-4 border border-gray-100 rounded-xl hover:bg-rose-50 transition">
+                        <div class="w-10 h-10 rounded-full bg-rose-100 flex items-center justify-center mr-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-dry-rose" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                            </svg>
+                        </div>
+                        <div class="flex-1">
+                            <div class="flex justify-between items-start">
+                                <h3 class="font-medium text-gray-800">June 12, 2023</h3>
+                                <span class="px-2 py-1 bg-rose-100 text-dry-rose rounded-full text-xs">Day 11</span>
+                            </div>
+                            <div class="mt-2 flex flex-wrap gap-2">
+                                <span class="px-2 py-1 bg-rose-50 text-dry-rose rounded-full text-xs">Headache</span>
+                                <span class="px-2 py-1 bg-rose-50 text-dry-rose rounded-full text-xs">Fatigue</span>
+                                <span class="px-2 py-1 bg-rose-50 text-dry-rose rounded-full text-xs">Bloating</span>
+                            </div>
+                            <p class="text-sm text-gray-600 mt-2">Felt more tired than usual today. Took a nap in the afternoon.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Log Item -->
+                    <div class="flex items-start p-4 border border-gray-100 rounded-xl hover:bg-rose-50 transition">
+                        <div class="w-10 h-10 rounded-full bg-rose-100 flex items-center justify-center mr-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-dry-rose" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                            </svg>
+                        </div>
+                        <div class="flex-1">
+                            <div class="flex justify-between items-start">
+                                <h3 class="font-medium text-gray-800">June 10, 2023</h3>
+                                <span class="px-2 py-1 bg-rose-100 text-dry-rose rounded-full text-xs">Day 9</span>
+                            </div>
+                            <div class="mt-2 flex flex-wrap gap-2">
+                                <span class="px-2 py-1 bg-rose-50 text-dry-rose rounded-full text-xs">Cramps</span>
+                                <span class="px-2 py-1 bg-rose-50 text-dry-rose rounded-full text-xs">Mood swings</span>
+                            </div>
+                            <p class="text-sm text-gray-600 mt-2">Mild cramps in the morning. Felt irritable in the evening.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Log Item -->
+                    <div class="flex items-start p-4 border border-gray-100 rounded-xl hover:bg-rose-50 transition">
+                        <div class="w-10 h-10 rounded-full bg-rose-100 flex items-center justify-center mr-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-dry-rose" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                            </svg>
+                        </div>
+                        <div class="flex-1">
+                            <div class="flex justify-between items-start">
+                                <h3 class="font-medium text-gray-800">June 8, 2023</h3>
+                                <span class="px-2 py-1 bg-rose-100 text-dry-rose rounded-full text-xs">Day 7</span>
+                            </div>
+                            <div class="mt-2 flex flex-wrap gap-2">
+                                <span class="px-2 py-1 bg-rose-50 text-dry-rose rounded-full text-xs">Acne</span>
+                            </div>
+                            <p class="text-sm text-gray-600 mt-2">Small breakout on chin area.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Mini Calendar -->
+            <div class="bg-white rounded-2xl p-6 shadow-sm">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-xl font-semibold text-gray-800">June 2023</h2>
+                    <div class="flex space-x-2">
+                        <button class="p-1 rounded-full hover:bg-gray-100">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                            </svg>
+                        </button>
+                        <button class="p-1 rounded-full hover:bg-gray-100">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="grid grid-cols-7 gap-1 mb-2">
+                    <div class="text-center text-xs font-medium text-gray-500 py-1">S</div>
+                    <div class="text-center text-xs font-medium text-gray-500 py-1">M</div>
+                    <div class="text-center text-xs font-medium text-gray-500 py-1">T</div>
+                    <div class="text-center text-xs font-medium text-gray-500 py-1">W</div>
+                    <div class="text-center text-xs font-medium text-gray-500 py-1">T</div>
+                    <div class="text-center text-xs font-medium text-gray-500 py-1">F</div>
+                    <div class="text-center text-xs font-medium text-gray-500 py-1">S</div>
+                </div>
+                
+                <div class="grid grid-cols-7 gap-1">
+                    <div class="text-center py-2 text-sm text-gray-400">28</div>
+                    <div class="text-center py-2 text-sm text-gray-400">29</div>
+                    <div class="text-center py-2 text-sm text-gray-400">30</div>
+                    <div class="text-center py-2 text-sm text-gray-400">31</div>
+                    <div class="text-center py-2 text-sm">1</div>
+                    <div class="text-center py-2 text-sm">2</div>
+                    <div class="text-center py-2 text-sm">3</div>
+                    
+                    <div class="text-center py-2 text-sm">4</div>
+                    <div class="text-center py-2 text-sm">5</div>
+                    <div class="text-center py-2 text-sm">6</div>
+                    <div class="text-center py-2 text-sm">7</div>
+                    <div class="text-center py-2 text-sm">8</div>
+                    <div class="text-center py-2 text-sm symptom-day">9</div>
+                    <div class="text-center py-2 text-sm symptom-day">10</div>
+                    
+                    <div class="text-center py-2 text-sm symptom-day">11</div>
+                    <div class="text-center py-2 text-sm period-day">12</div>
+                    <div class="text-center py-2 text-sm period-day">13</div>
+                    <div class="text-center py-2 text-sm period-day">14</div>
+                    <div class="text-center py-2 text-sm period-day">15</div>
+                    <div class="text-center py-2 text-sm">16</div>
+                    <div class="text-center py-2 text-sm">17</div>
+                    
+                    <div class="text-center py-2 text-sm">18</div>
+                    <div class="text-center py-2 text-sm">19</div>
+                    <div class="text-center py-2 text-sm">20</div>
+                    <div class="text-center py-2 text-sm">21</div>
+                    <div class="text-center py-2 text-sm">22</div>
+                    <div class="text-center py-2 text-sm">23</div>
+                    <div class="text-center py-2 text-sm">24</div>
+                    
+                    <div class="text-center py-2 text-sm">25</div>
+                    <div class="text-center py-2 text-sm">26</div>
+                    <div class="text-center py-2 text-sm">27</div>
+                    <div class="text-center py-2 text-sm">28</div>
+                    <div class="text-center py-2 text-sm">29</div>
+                    <div class="text-center py-2 text-sm">30</div>
+                    <div class="text-center py-2 text-sm text-gray-400">1</div>
+                </div>
+                
+                <div class="mt-6 pt-4 border-t border-gray-100">
+                    <div class="flex items-center mb-2">
+                        <div class="w-3 h-3 rounded-full bg-coral mr-2"></div>
+                        <span class="text-sm text-gray-600">Period days</span>
+                    </div>
+                    <div class="flex items-center">
+                        <div class="w-3 h-3 rounded-full bg-dry-rose mr-2"></div>
+                        <span class="text-sm text-gray-600">Symptom days</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Stats Section -->
+        <div class="bg-white rounded-2xl p-6 shadow-sm mb-8">
+            <h2 class="text-xl font-semibold text-gray-800 mb-6">Cycle Statistics</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Symptom Frequency Chart -->
+                <div>
+                    <h3 class="font-medium text-gray-700 mb-4">Symptom Frequency</h3>
+                    <div class="h-64 flex items-end justify-center space-x-2">
+                        <div class="w-8 bg-rose-200 rounded-t" style="height: 40%;"></div>
+                        <div class="w-8 bg-rose-300 rounded-t" style="height: 60%;"></div>
+                        <div class="w-8 bg-rose-400 rounded-t" style="height: 80%;"></div>
+                        <div class="w-8 bg-rose-500 rounded-t" style="height: 70%;"></div>
+                        <div class="w-8 bg-rose-600 rounded-t" style="height: 30%;"></div>
+                    </div>
+                    <div class="flex justify-between mt-2 text-xs text-gray-500">
+                        <span>Headache</span>
+                        <span>Fatigue</span>
+                        <span>Bloating</span>
+                        <span>Cramps</span>
+                        <span>Acne</span>
+                    </div>
+                </div>
+                
+                <!-- Mood Trends -->
+                <div>
+                    <h3 class="font-medium text-gray-700 mb-4">Mood Trends</h3>
+                    <div class="h-64 relative">
+                        <div class="absolute bottom-0 left-0 right-0 h-px bg-gray-200"></div>
+                        <div class="absolute left-0 right-0 flex items-end space-x-1" style="height: 90%;">
+                            <div class="w-4 bg-blue-200 rounded-t" style="height: 30%;"></div>
+                            <div class="w-4 bg-blue-300 rounded-t" style="height: 50%;"></div>
+                            <div class="w-4 bg-blue-400 rounded-t" style="height: 70%;"></div>
+                            <div class="w-4 bg-blue-500 rounded-t" style="height: 60%;"></div>
+                            <div class="w-4 bg-blue-600 rounded-t" style="height: 40%;"></div>
+                            <div class="w-4 bg-red-400 rounded-t" style="height: 80%;"></div>
+                            <div class="w-4 bg-red-500 rounded-t" style="height: 90%;"></div>
+                        </div>
+                    </div>
+                    <div class="flex justify-between mt-2 text-xs text-gray-500">
+                        <span>1</span>
+                        <span>2</span>
+                        <span>3</span>
+                        <span>4</span>
+                        <span>5</span>
+                        <span>6</span>
+                        <span>7</span>
+                    </div>
+                    <div class="flex justify-center space-x-4 mt-2">
+                        <div class="flex items-center">
+                            <div class="w-3 h-3 bg-blue-400 rounded-full mr-1"></div>
+                            <span class="text-xs">Positive</span>
+                        </div>
+                        <div class="flex items-center">
+                            <div class="w-3 h-3 bg-red-400 rounded-full mr-1"></div>
+                            <span class="text-xs">Negative</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Cycle Length History -->
+                <div>
+                    <h3 class="font-medium text-gray-700 mb-4">Cycle Length History</h3>
+                    <div class="h-64 relative">
+                        <div class="absolute bottom-0 left-0 right-0 h-px bg-gray-200"></div>
+                        <div class="absolute left-0 right-0" style="height: 90%;">
+                            <div class="h-full flex items-end">
+                                <div class="flex-1 flex items-end space-x-1">
+                                    <div class="w-6 bg-purple-300 rounded-t" style="height: 70%;"></div>
+                                    <div class="w-6 bg-purple-400 rounded-t" style="height: 80%;"></div>
+                                    <div class="w-6 bg-purple-500 rounded-t" style="height: 90%;"></div>
+                                    <div class="w-6 bg-purple-600 rounded-t" style="height: 75%;"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex justify-between mt-2 text-xs text-gray-500">
+                        <span>Mar</span>
+                        <span>Apr</span>
+                        <span>May</span>
+                        <span>Jun</span>
+                    </div>
+                    <div class="mt-4 text-center">
+                        <p class="text-sm text-gray-600">Average cycle length: <span class="font-medium">28 days</span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- AI Chat Section -->
+        <div class="bg-white rounded-2xl p-6 shadow-sm mb-8">
+            <h2 class="text-xl font-semibold text-gray-800 mb-6">Ask Bloom Assistant</h2>
+            
+            <div class="bg-gray-50 rounded-xl p-4 h-64 overflow-y-auto mb-4">
+                <!-- Chat messages -->
+                <div class="space-y-3">
+                    <!-- Bot message -->
+                    <div class="flex justify-start">
+                        <div class="chat-bubble bot-bubble p-3">
+                            <p>Hi Sarah! I'm Bloom, your menstrual health assistant. How can I help you today?</p>
+                        </div>
+                    </div>
+                    
+                    <!-- User message -->
+                    <div class="flex justify-end">
+                        <div class="chat-bubble user-bubble p-3">
+                            <p>I've been feeling really tired the past few days. Is this normal?</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Bot message -->
+                    <div class="flex justify-start">
+                        <div class="chat-bubble bot-bubble p-3">
+                            <p>Fatigue is common around day 10-14 of your cycle due to hormonal changes. Based on your logs, this pattern appears regularly for you. Make sure to stay hydrated and consider adding iron-rich foods to your diet.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="flex">
+                <input type="text" placeholder="Type your question..." class="flex-1 border border-gray-300 rounded-l-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-coral focus:border-transparent">
+                <button class="bg-coral text-white px-4 py-2 rounded-r-lg hover:bg-opacity-90 transition">Send</button>
+            </div>
+            
+            <div class="mt-4 flex flex-wrap gap-2">
+                <button class="px-3 py-1 bg-rose-50 text-dry-rose rounded-full text-sm hover:bg-rose-100 transition">Common symptoms</button>
+                <button class="px-3 py-1 bg-rose-50 text-dry-rose rounded-full text-sm hover:bg-rose-100 transition">Diet tips</button>
+                <button class="px-3 py-1 bg-rose-50 text-dry-rose rounded-full text-sm hover:bg-rose-100 transition">Cycle prediction</button>
+                <button class="px-3 py-1 bg-rose-50 text-dry-rose rounded-full text-sm hover:bg-rose-100 transition">Pain relief</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Footer -->
+    <footer class="bg-white py-6 border-t border-gray-200">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="flex items-center space-x-2 mb-4 md:mb-0">
+                    <div class="w-6 h-6 rounded-full bg-gradient-to-r from-coral to-dry-rose"></div>
+                    <span class="text-lg font-semibold text-dry-rose">Bloom</span>
+                </div>
+                <div class="flex space-x-6">
+                    <a href="#" class="text-gray-500 hover:text-coral transition">Privacy</a>
+                    <a href="#" class="text-gray-500 hover:text-coral transition">Terms</a>
+                    <a href="#" class="text-gray-500 hover:text-coral transition">Contact</a>
+                </div>
+            </div>
+            <p class="text-center text-gray-500 text-sm mt-6">© 2023 Bloom Menstrual Tracker. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Simple script to toggle mobile menu (would be expanded in a real implementation)
+        document.addEventListener('DOMContentLoaded', function() {
+            // This would be connected to a mobile menu toggle in a real implementation
+            console.log('Bloom menstrual tracker loaded');
+            
+            // Example of adding a new log (would be connected to backend in real app)
+            document.querySelector('.hover-glow').addEventListener('click', function() {
+                alert('This would open a form to log symptoms in the full application.');
+            });
+        });
+    </script>
+</body>
+</html>
